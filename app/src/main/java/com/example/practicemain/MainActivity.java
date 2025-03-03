@@ -2,7 +2,6 @@ package com.example.practicemain;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,10 +19,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.snackbar.Snackbar;
+
+
 public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
-    private CheckBox checkbox;
+    private CheckBox mp, java, php, js;
     private Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,27 +40,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         radioGroup = findViewById(R.id.radioGroup);
-        checkbox = findViewById(R.id.checkbox);
         spinner = findViewById(R.id.spinner);
 
         /** Allow us to adapt the lists of data into a single view item **/
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
-                    androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                    getResources().getStringArray(R.array.college_list));
-            spinner.setAdapter(arrayAdapter);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.college_list));
+        spinner.setAdapter(arrayAdapter);
 
-
-
-        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    Toast.makeText(MainActivity.this, "Checkbox selected", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(MainActivity.this, "Checkbox unselected", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -72,37 +60,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton button = (RadioButton) radioGroup.findViewById(i);
+                RadioButton button = radioGroup.findViewById(i);
 
-                if(button.getId() == R.id.male){
+                if (button.getId() == R.id.male) {
                     Toast.makeText(MainActivity.this, "Male selected", Toast.LENGTH_SHORT).show();
-                }else if(button.getId() == R.id.female){
+                } else if (button.getId() == R.id.female) {
                     Toast.makeText(MainActivity.this, "Female selected", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        Button b=findViewById(R.id.button);
+        mp = findViewById(R.id.mobile_prg);
+        java = findViewById(R.id.java);
+        php = findViewById(R.id.php);
+        js = findViewById(R.id.js);
+
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton cb, boolean isChecked) {
+                if (isChecked) {
+                    Snackbar.make(cb, cb.getText() + " is selected", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        };
+//
+        mp.setOnCheckedChangeListener(listener);
+        java.setOnCheckedChangeListener(listener);
+        php.setOnCheckedChangeListener(listener);
+        js.setOnCheckedChangeListener(listener);
+
+
+        Button b = findViewById(R.id.button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // new Intent(CurrentActivity.this,NextActivity.class)
                 // new Intent(getApplicationContext(),NextActivity.class)
 //                Intent intent= new Intent(MainActivity.this,GridViewActivity.class);
-                Intent intent= new Intent(MainActivity.this,DisplayDialogActivity.class);
-                Bundle bundle = new Bundle();
+                Intent intent = new Intent(MainActivity.this, ListViewActivity.class);
+                intent.putExtra("username", "Universal");
+                intent.putExtra("age", 20);
+                intent.putExtra("height", 4.5f);
+
+//                Bundle bundle = new Bundle();
 //                bundle.putString("username","Universal");
 //                bundle.putInt("age",20);
-//                intent.putExtra("username","Universal");
-//                intent.putExtra("age",20);
-//                intent.putExtra("height",4.5f);
+
                 startActivity(intent);
             }
         });
-
 
     }
 }
