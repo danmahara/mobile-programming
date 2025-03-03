@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">PracticeMain</string>
+    <string name="long_title">I Will Practice here, radio button, checkbox and spinner(dropdown)</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="choose_languages">Choose Languages :</string>
+    <string name="display_selected_languages">Display selected Languages</string>
+    <string name="login_title">Login</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter your username</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="login_btn">Login</string>
+
+    <string-array name="college_list">
+        <item>Universal College</item>
+        <item>KCT College</item>
+        <item>Phoenix College</item>
+        <item>VS College</item>
+        <item>Nobel Academy</item>
+        <item>Softworica College</item>
+        <item>KMC College</item>
+    </string-array>
+
+    <string-array name="cities">
+        <item>Select</item>
+        <item>Kailali</item>
+        <item>Dhangadhi</item>
+        <item>Baitadi</item>
+        <item>Kathmandu</item>
+        <item>Lalitput</item>
+        <item>Bhaktapur</item>
+        <item>Pokhara</item>
+    </string-array>
+</resources>
