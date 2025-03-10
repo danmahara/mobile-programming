@@ -1,6 +1,8 @@
 package com.example.practicemain;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,27 +21,29 @@ public class ListViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_list_view);
-        spinner = findViewById(R.id.my_spinner);
 
         List<UserData> userDataList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             userDataList.add(new UserData("name " + i, "email " + i, i, i));
         }
-//        userDataList.add(new UserData("Dan","dan.mahara.0909@gmail.com",5,5.5f));
-        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this, userDataList);
-        spinner.setAdapter(adapter);
+//        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this, userDataList);
+//        spinner.setAdapter(adapter);
 
 
-//        listView = findViewById(R.id.list_view);
-//        if (listView != null) {
-//            CustomListAdapter customListAdapter = new CustomListAdapter(this, userDataList);
-//            listView.setAdapter(customListAdapter);
-//        } else {
-//            Toast.makeText(this, "list view not found", Toast.LENGTH_SHORT).show();
-//        }
+        listView = findViewById(R.id.list_view);
+
+        CustomListAdapter customListAdapter = new CustomListAdapter(this, userDataList);
+        listView.setAdapter(customListAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                UserData userData=userDataList.get(i);
+                Toast.makeText(ListViewActivity.this,userData.getName() , Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
