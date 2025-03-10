@@ -1,12 +1,13 @@
 package com.example.practicemain;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.List;
 
 public class DisplayDialogActivity extends AppCompatActivity {
 
@@ -28,40 +31,75 @@ public class DisplayDialogActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button btn = findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button showdialog = findViewById(R.id.show_dialog);
+        showdialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAlertDialogBox();
             }
         });
+
+
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        Button retriveData = findViewById(R.id.retrive_data);
+
+
+        PostDataRetrive postDataRetrive = new PostDataRetrive(new PostDataCallback() {
+            @Override
+            public void onLoading() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+
+            @Override
+            public void onSuccess(List<Post> postList) {
+                progressBar.setVisibility(View.VISIBLE);
+                Log.e("posts",postList.toString());
+
+//                set recycler adapter for psotlist
+            }
+
+            @Override
+            public void onFailure(String error) {
+                progressBar.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+        retriveData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postDataRetrive.execute();
+            }
+        });
+
     }
+
 
     private void showAlertDialogBox() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this); // activity context
 //       to add custom view to alert dialog
 
         View view = LayoutInflater.from(this).inflate(R.layout.login_file, null);
-        AlertDialog dialog=builder.create();
+        AlertDialog dialog = builder.create();
         dialog.setView(view);
 
-        EditText edtName,edtpas;
-        edtName=view.findViewById(R.id.edtName);
-        edtpas=view.findViewById(R.id.edtPass);
-        Button submit=view.findViewById(R.id.btn_login);
+        EditText edtName, edtpas;
+        edtName = view.findViewById(R.id.edtName);
+        edtpas = view.findViewById(R.id.edtPass);
+        Button submit = view.findViewById(R.id.btn_login);
 
         dialog.show();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name=edtName.getText().toString();
-                String pwd=edtpas.getText().toString();
-                Toast.makeText(DisplayDialogActivity.this,name+" "+pwd,Toast.LENGTH_SHORT).show();
+                String name = edtName.getText().toString();
+                String pwd = edtpas.getText().toString();
+                Toast.makeText(DisplayDialogActivity.this, name + " " + pwd, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
-
 
 
 //        builder.setTitle("Default Alert Title ");
