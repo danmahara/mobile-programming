@@ -13,10 +13,10 @@ import java.util.List;
 
 public class CustomSpinnerAdapter extends ArrayAdapter<UserData> {
 
-    private final ListViewActivity activity;
+    private final SpinnerActivity activity;
     private final List<UserData> userDataList;
 
-    public CustomSpinnerAdapter(ListViewActivity activity, List<UserData> userDataList) {
+    public CustomSpinnerAdapter(SpinnerActivity activity, List<UserData> userDataList) {
         super(activity, 0, userDataList);
         this.activity = activity;
         this.userDataList = userDataList;
@@ -25,8 +25,8 @@ public class CustomSpinnerAdapter extends ArrayAdapter<UserData> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return initView(position, convertView, parent);
+    public View getView(int i, @Nullable View view, @NonNull ViewGroup parent) {
+        return initView(i, view, parent);
     }
 
     private View initView(int position, View convertView, ViewGroup parent) {
