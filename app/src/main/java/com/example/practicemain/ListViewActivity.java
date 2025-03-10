@@ -21,6 +21,7 @@ public class ListViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_list_view);
 
         List<UserData> userDataList = new ArrayList<>();
@@ -62,7 +63,7 @@ public class ListViewActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Bundle bundle = getIntent().getExtras();
-        String name = bundle.getString("username");
-        int age = bundle.getInt("age",0);
+//        String name = bundle.getString("username");
+//        int age = bundle.getInt("age",0);
     }
 }
