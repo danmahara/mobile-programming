@@ -101,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
                 // new Intent(CurrentActivity.this,NextActivity.class)
                 // new Intent(getApplicationContext(),NextActivity.class)
 //                Intent intent= new Intent(MainActivity.this,GridViewActivity.class);
-                Intent intent = new Intent(MainActivity.this, ListViewActivity.class);
-                intent.putExtra("username", "Universal");
-                intent.putExtra("age", 20);
-                intent.putExtra("height", 4.5f);
+                Intent intent = new Intent(MainActivity.this, DisplayDialogActivity.class);
+//                intent.putExtra("username", "Universal");
+//                intent.putExtra("age", 20);
+//                intent.putExtra("height", 4.5f);
 
 //                Bundle bundle = new Bundle();
 //                bundle.putString("username","Universal");

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PracticeMain"
         tools:targetApi="31">
         <activity
+            android:name=".SpinnerActivity"
+            android:exported="false" />
+        <activity
             android:name=".DisplayDialogActivity"
             android:exported="false" />
         <activity

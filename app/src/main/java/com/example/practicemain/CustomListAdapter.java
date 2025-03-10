@@ -26,7 +26,7 @@ public class CustomListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return userDataList.get(i);
     }
 
     @Override
@@ -37,10 +37,10 @@ public class CustomListAdapter extends BaseAdapter {
     @NonNull
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-       return initView(i,view,viewGroup);
+        return initView(i, view, viewGroup);
     }
 
-        public View initView(int i, View view, ViewGroup parent) {
+    private View initView(int i, View view, ViewGroup parent) {
         if (view == null) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_data, parent, false);
             TextView name = view.findViewById(R.id.name);
