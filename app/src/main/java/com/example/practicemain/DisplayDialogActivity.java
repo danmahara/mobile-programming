@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -42,36 +44,70 @@ public class DisplayDialogActivity extends AppCompatActivity {
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
         Button retriveData = findViewById(R.id.retrive_data);
-
-
-        PostDataRetrive postDataRetrive = new PostDataRetrive(new PostDataCallback() {
-            @Override
-            public void onLoading() {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-
-
-            @Override
-            public void onSuccess(List<Post> postList) {
-                progressBar.setVisibility(View.VISIBLE);
-                Log.e("posts",postList.toString());
-
-//                set recycler adapter for psotlist
-            }
-
-            @Override
-            public void onFailure(String error) {
-                progressBar.setVisibility(View.INVISIBLE);
-
-            }
-        });
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        progressBar.setVisibility(View.GONE);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         retriveData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PostDataRetrive postDataRetrive = new PostDataRetrive(new PostDataCallback() {
+                    @Override
+                    public void onLoading() {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onSuccess(List<Post> postList) {
+                        progressBar.setVisibility(View.GONE);
+                        Log.e("posts", postList.toString());
+
+                        // set recycler adapter for postlist
+                        if (postList != null && !postList.isEmpty()) {
+                            CustomPostRecyclerAdapter adapter = new CustomPostRecyclerAdapter(postList);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        Log.e("PostDataRetrive", error);  // Log the error message
+                        //progressBar.setVisibility(View.INVISIBLE);
+
+                    }
+                });
                 postDataRetrive.execute();
             }
         });
+//        PostDataRetrive postDataRetrive = new PostDataRetrive(new PostDataCallback() {
+//            @Override
+//            public void onLoading() {
+//                progressBar.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onSuccess(List<Post> postList) {
+//                progressBar.setVisibility(View.GONE);
+//                Log.e("posts",postList.toString());
+//
+////                set recycler adapter for psotlist
+//            }
+//
+//            @Override
+//            public void onFailure(String error) {
+//                Log.e("PostDataRetrive", error);  // Log the error message
+////                progressBar.setVisibility(View.INVISIBLE);
+//
+//            }
+//        });
+
+//        retriveData.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                postDataRetrive.execute();
+//            }
+//        });
 
     }
 

@@ -1,7 +1,6 @@
 package com.example.practicemain;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,8 +17,8 @@ public class PostDataRetrive extends AsyncTask<String, String, String> {
 
     private final PostDataCallback callback;
 
-    public PostDataRetrive(PostDataCallback callback){
-        this.callback=callback;
+    public PostDataRetrive(PostDataCallback callback) {
+        this.callback = callback;
     }
 
     @Override
@@ -57,20 +56,20 @@ public class PostDataRetrive extends AsyncTask<String, String, String> {
         super.onPostExecute(s);
 
         try {
-            List<Post> postList=new ArrayList<>();
-            JSONArray jsonArray=new JSONArray(s);
-            for(int i=0;i<s.length();i++){
-                JSONObject jsonObject=jsonArray.getJSONObject(i);
+            List<Post> postList = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(s);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                String title=jsonObject.getString("title");
-                String body= jsonObject.optString("body");
-                int userId= jsonObject.getInt("userId");
-                int id= jsonObject.getInt("id");
+                String title = jsonObject.getString("title");
+                String body = jsonObject.optString("body");
+                int userId = jsonObject.getInt("userId");
+                int id = jsonObject.getInt("id");
 
-                postList.add(new Post(userId,id,title,body));
-                callback.onSuccess(postList);
+                postList.add(new Post(userId, id, title, body));
 
             }
+            callback.onSuccess(postList);
         } catch (Exception e) {
 //            Log.e("error", e.toString());
             callback.onFailure(e.toString());
