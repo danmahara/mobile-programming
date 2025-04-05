@@ -10,8 +10,7 @@
         android:id="@+id/show_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Show Dialog"/>
+        android:layout_centerInParent="true"
+        android:text="Show Dialog" />
 
 </RelativeLayout>
